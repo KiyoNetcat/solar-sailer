@@ -1,4 +1,4 @@
-use std::{f32::consts::FRAC_PI_2, sync::Arc};
+use std::{f32::consts::FRAC_PI_2, process, sync::Arc};
 
 use glam::{Mat4, Quat, Vec3, vec3};
 use stardust_xr_fusion::{
@@ -13,7 +13,7 @@ use stardust_xr_fusion::{
 	zbus::Connection,
 };
 use stardust_xr_molecules::{
-	UIElement,
+	Derezzable, UIElement,
 	button::{Button, ButtonSettings},
 	input_action::{InputQueue, InputQueueable as _, SimpleAction, SingleAction},
 	lines::{LineExt as _, circle},
@@ -37,6 +37,7 @@ pub struct PenInput {
 	client: Arc<ClientHandle>,
 	button: Button,
 	reparentable: Option<Reparentable>,
+	derezzable: Derezzable,
 	connection: Connection,
 	_button_model: Model,
 }
@@ -152,6 +153,12 @@ impl PenInput {
 			&ResourceID::new_namespaced("solar_sailer", "move_icon"),
 		)?;
 
+		let derezzable = Derezzable::create(
+			connection.clone(),
+			"/Pen",
+			field.clone().as_spatial(),
+			Some(field.clone()),
+		)?;
 		let mut pen = Self {
 			move_action: Default::default(),
 			grab_action: Default::default(),
@@ -164,6 +171,7 @@ impl PenInput {
 			button,
 			reparentable: None,
 			connection,
+			derezzable,
 
 			_button_model: button_model,
 		};
@@ -185,6 +193,9 @@ impl PenInput {
 		.ok();
 	}
 	fn handle_input(&mut self) {
+		if let Ok(_) = self.derezzable.receiver.try_recv() {
+			process::exit(0);
+		}
 		if !self.queue.handle_events() {
 			return;
 		}
