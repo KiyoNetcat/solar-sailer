@@ -9,7 +9,10 @@ use stardust_xr_fusion::{
 	node::NodeResult,
 	objects::hmd,
 	spatial::{Spatial, SpatialAspect as _, SpatialRef, SpatialRefAspect, Transform},
-	values::{ResourceID, color::rgba_linear},
+	values::{
+		ResourceID,
+		color::{rgba, rgba_linear},
+	},
 	zbus::Connection,
 };
 use stardust_xr_molecules::{
@@ -284,8 +287,8 @@ impl PenInput {
 			.actor()
 			.is_some_and(|actor| self.move_action.currently_acting().contains(actor));
 		let color = match (mode, grabbing) {
-			(Mode::Reparent, false) => rgba_linear!(1.0, 1.0, 1.0, 1.0),
-			(Mode::MonadoOffset, false) => rgba_linear!(1.0, 1.0, 0.0, 1.0),
+			(Mode::Reparent, false) => rgba!(0.015686, 0.992157, 0.298039, 1.0).to_linear(),
+			(Mode::MonadoOffset, false) => rgba!(0.361, 0.161, 0.514, 1.0).to_linear(),
 			(Mode::Disabled, _) => rgba_linear!(0.033104762, 0.033104762, 0.033104762, 1.),
 			(_, true) => rgba_linear!(0., 0.26223028, 1., 1.),
 		};
