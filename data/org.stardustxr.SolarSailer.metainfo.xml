@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<component type="desktop-application">
+  <id>org.StardustXR.SolarSailer.desktop</id>
+  <project_license>MIT</project_license>
+  <name>Solar Sailer</name>
+  <summary>Glide around your space, in VR</summary>
+  <description>
+    <p>
+    	Glide around your space, in VR.
+    </p>
+  </description>
+  <url type="homepage">https://github.com/StardustXR/solar-sailer</url>
+  <url type="bugtracker">https://github.com/StardustXR/solar-sailer/issues</url>
+  <content_rating type="oars-1.1">
+    <content_attribute id="violence-bloodshed">0</content_attribute>
+    <content_attribute id="violence-cartoon">0</content_attribute>
+    <content_attribute id="violence-fantasy">0</content_attribute>
+    <content_attribute id="drugs-alcohol">0</content_attribute>
+    <content_attribute id="drugs-nicotine">0</content_attribute>
+    <content_attribute id="drugs-illegal">0</content_attribute>
+    <content_attribute id="sex-nudity">0</content_attribute>
+    <content_attribute id="sex-themes">0</content_attribute>
+    <content_attribute id="language-profanity">0</content_attribute>
+  </content_rating>
+  <releases>
+    <release version="0.51.0" date="2025-03-15" />
+  </releases>
+  <developer_name>Nova King</developer_name>
+  <update_contact>technobaboo@proton.me</update_contact>
+  <translation type="gettext">solar-sailer</translation>
+  <launchable type="desktop-id">org.stardustxr.SolarSailer.desktop</launchable>
+</component>

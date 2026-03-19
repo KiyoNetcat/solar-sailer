@@ -10,15 +10,18 @@ use stardust_xr_fusion::{
 	client::Client,
 	objects::object_registry::ObjectRegistry,
 	project_local_resources,
-	root::{RootAspect, RootEvent}, zbus::{conn::Builder, fdo::ObjectManager},
+	root::{RootAspect, RootEvent},
+	zbus::{conn::Builder, fdo::ObjectManager},
 };
+
+pub const APP_ID: &str = "org.stardustxr.SolarSailer";
 
 #[tokio::main(flavor = "current_thread")]
 async fn main() {
 	tracing_subscriber::fmt().pretty().with_file(false).init();
 	let client = Client::connect().await.unwrap();
 	client
-		.setup_resources(&[&project_local_resources!("res")])
+		.setup_resources(&[&project_local_resources!("data")])
 		.unwrap();
 	let conn = Builder::session()
 		.unwrap()

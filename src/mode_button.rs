@@ -5,15 +5,23 @@ use std::{
 
 use glam::Quat;
 use stardust_xr_fusion::{
-	ClientHandle, drawable::Model, node::NodeType, objects::{SpatialRefProxyExt as _, interfaces::SpatialRefProxy}, spatial::Transform, values::ResourceID, zbus::{Connection, names::WellKnownName}
+	ClientHandle,
+	drawable::Model,
+	node::NodeType,
+	objects::{SpatialRefProxyExt as _, interfaces::SpatialRefProxy},
+	spatial::Transform,
+	values::ResourceID,
+	zbus::{Connection, names::WellKnownName},
 };
 use stardust_xr_molecules::{
+	UIElement,
 	button::{Button, ButtonSettings},
 	tracked::TrackedProxy,
-	UIElement,
 };
 use std::sync::mpsc;
 use tokio_stream::StreamExt as _;
+
+use crate::APP_ID;
 
 struct ButtonEnabled(bool);
 
@@ -37,7 +45,11 @@ impl ModeButton {
 		}
 		self.button.released()
 	}
-	pub async fn new(client: &Arc<ClientHandle>, location: ButtonLocation, connection: &Connection) -> Option<Self> {
+	pub async fn new(
+		client: &Arc<ClientHandle>,
+		location: ButtonLocation,
+		connection: &Connection,
+	) -> Option<Self> {
 		let (dest, spatial_path, tracked_path) = match location {
 			ButtonLocation::Hand => (
 				"org.stardustxr.Hands",
@@ -77,7 +89,7 @@ impl ModeButton {
 		let model = Model::create(
 			button.touch_plane().root(),
 			Transform::identity(),
-			&ResourceID::new_namespaced("solar_sailer", "move_icon"),
+			&ResourceID::new_namespaced(APP_ID, "move_icon"),
 		)
 		.ok()?;
 

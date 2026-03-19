@@ -25,6 +25,7 @@ use stardust_xr_molecules::{
 use tracing::error;
 
 use crate::{
+	APP_ID,
 	mode_button::ModeButton,
 	solar_sailer::{Mode, mat_from_transform},
 };
@@ -153,7 +154,7 @@ impl PenInput {
 		let button_model = Model::create(
 			button.touch_plane().root(),
 			Transform::identity(),
-			&ResourceID::new_namespaced("solar_sailer", "move_icon"),
+			&ResourceID::new_namespaced(APP_ID, "move_icon"),
 		)?;
 
 		let derezzable = Derezzable::create(
