@@ -18,7 +18,10 @@
           name = "resources";
           src = ./.;
 
-          buildPhase = "cp -r $src/data/org.stardustxr.SolarSailer $out";
+          installPhase = ''
+            mkdir -p $out/org.stardustxr.SolarSailer
+            install -Dm0644 $src/data/org.stardustxr.SolarSailer/* $out/org.stardustxr.SolarSailer
+          '';
         };
       };
     });
